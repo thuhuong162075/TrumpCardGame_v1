@@ -1,57 +1,50 @@
 * {
-	box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 body {
-	margin: 0;
-	padding: 0;
-}
 
-h1 {
-	margin: 30px;
-	text-transform: uppercase;
-	font-size: 35px;
+}
+.game-title h1 {
 	text-align: center;
+	padding: 20px;
 }
-.wrap {
-	position: relative;
-	margin: 1%;
-	max-width: 100%;
-	height: 100%;
+.memory-game {
+  width: 640px;
+  height: 640px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  perspective: 1000px;
 }
-.content {
-	position: relative;
-	overflow: auto;
-	padding: 2%;
-	margin: justify;
-	border: 1px solid black;
-}
-.grid.row {
-	margin: justify;
-}
-.card.col {
-	margin: 10px;
-	padding: 0px;
-	position: relative;
-	width: 8%;
-	border: none;
-}
-.card img {
+.memory-card img {
+	width: 140px;
 	height: 243px;
-	width: 100%;
+} 
+.memory-card {
+  width: calc(25% - 10px);
+  height: calc(33.333% - 10px);
+  margin: 5px;
+  position: relative;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform .5s;
 }
-.card .back {
-	position: absolute;
-	transform: rotateY(180deg);
-	top: 0px;
-	left: 0px;
+.memory-card:active {
+  transform: scale(0.97);
+  transition: transform .2s;
 }
-.card:hover .back {
-	transform: rotateY(0deg);
+.memory-card.flip {
+  transform: rotateY(180deg);
 }
-.card:hover .front {
-	transform: rotateY(180deg);
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
 }
-.card .front, .card .back {
-	transition: all 0.5s;
-	backface-visibility: hidden;
+.front-face {
+  transform: rotateY(180deg);
 }

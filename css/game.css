@@ -3,9 +3,6 @@
   margin: 0;
   box-sizing: border-box;
 }
-body {
-
-}
 .game_title h1 {
 	text-align: center;
 	padding: 20px;
@@ -14,3 +11,31 @@ body {
 .info_game_mod {
   text-align: center;
 }
+#main {
+	text-align: center;
+	margin-top: 30px;
+}
+.card img {
+	width: 100%;
+	height: 243px;
+}
+.card {
+	width: 13%;
+	border: none;
+	display: inline-block;
+	margin: 5px;
+	position: relative;
+	transform-style: preserve-3d;
+	transform: scale(1);
+    transition: transform .5s;
+}
+.card:active {
+	transform: scale(0.97);
+}
+.on, .off {
+	backface-visibility: hidden;
+}
+.off {
+	position: absolute;
+}
+

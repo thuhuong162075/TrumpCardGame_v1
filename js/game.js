@@ -17,16 +17,20 @@ var card_flip=0;
 $(document).ready(function(){
 	createGame();
 });
+
 //hàm tạo game 
 function createGame(){
 	printInterface();
 }
+
 // tạo mảng lưu ảnh 
 function NextLevel(){
 	for(var i=1;i<=2;i++){
 		array_img.push("img/pic"+i+".png","img/pic"+i+".png");
 	}
+	random();
 }
+
 //tạo hàm in giao diện 
 function printInterface(){
 	NextLevel();
@@ -60,6 +64,7 @@ function Selec_img(ctrl,i){
 		}
 	}
 }
+
 function Check(){
 	click=0;
 	if(array_img[location1] == array_img[location2]){
@@ -68,15 +73,22 @@ function Check(){
 		$('#on'+location2).css('visibility','hidden');
 		$('#off'+location2).css('visibility','hidden');
 		card_flip++;
-		$('#card_flip').html("<span>Cards Flipped: "+card_flip+"</span>")
+		$('#card_flip').html("<span>Cards Flipped: "+card_flip+"</span>");
 		
 	}else {
-		$("#off"+location1).css('transform','rotateY(0deg)');
-		$("#off"+location2).css('transform','rotateY(0deg)');
+
 		$("#on"+location1).css('transform','rotateY(180deg)');
-		$("#on"+location2).css('transform','rotateY(180deg)');	
+		//$("#off"+location1).css('transform','rotateY(0deg)');
+		$("#on"+location2).css('transform','rotateY(180deg)');
+		//$("#off"+location2).css('transform','rotateY(0deg)');
 	}
+
 	if(card_flip==array_img.length/2){
 			alert('WIN');
 		}
+}
+function random(){
+	array_img.sort(function(){
+		return 0.5-Math.random();
+	});
 }

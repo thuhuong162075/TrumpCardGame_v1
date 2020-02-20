@@ -36,7 +36,7 @@ function printInterface(){
 	NextLevel();
 	var shtml="";
 	for(var i=0;i<array_img.length;i++){
-		shtml = shtml + "<div class='card'><img class='off' id='off"+i+"' onclick='Selec_img(this,"+i+");' width='100%' src='img/pic0.png'><img class='on' id='on"+i+"'src='"+array_img[i]+"'></div>"
+		shtml = shtml + "<div class='flip-box' onclick='Selec_img(this,"+i+");'><div class='card' id='card"+i+"'><img class='off' id='off"+i+"' width='100%' src='img/pic0.png'><img class='on' id='on"+i+"'src='"+array_img[i]+"'></div></div>"
 	}
 	$('#main').html(shtml);
 	$('#card_flip').html("<span>Cards Flipped: "+card_flip+"</span>")
@@ -47,8 +47,8 @@ function Selec_img(ctrl,i){
 	if(click==0){
 		ctrl1=ctrl;
 		location1=i;
-		$(ctrl1).css('transform','rotateY(180deg)');
-		$("#on"+location1).css('transform','rotateY(0deg)');
+		$("#card"+location1).css('transform','rotateY(180deg)');
+		//$("#on"+location1).css('transform','rotateY(0deg)');
 		click=1;
 	}else{
 		ctrl2=ctrl;
@@ -78,15 +78,18 @@ function Check(){
 	}else {
 
 		$("#on"+location1).css('transform','rotateY(180deg)');
-		//$("#off"+location1).css('transform','rotateY(0deg)');
+		$("#off"+location1).css('transform','rotateY(0deg)');
+		//$("#off"+location1).css('z-index','1');
 		$("#on"+location2).css('transform','rotateY(180deg)');
-		//$("#off"+location2).css('transform','rotateY(0deg)');
+		$("#off"+location2).css('transform','rotateY(0deg)');
+		//$("#off"+location2).css('z-index','1');
 	}
 
 	if(card_flip==array_img.length/2){
 			alert('WIN');
 		}
 }
+
 function random(){
 	array_img.sort(function(){
 		return 0.5-Math.random();

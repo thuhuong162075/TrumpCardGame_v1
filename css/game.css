@@ -12,6 +12,7 @@
   text-align: center;
 }
 #main {
+  display: block;
 	text-align: center;
 	margin-top: 30px;
 }
@@ -19,26 +20,21 @@
 	width: 100%;
 	height: 243px;
 }
+.flip-box {
+  display: block;
+}
 .card {
-  display: inline-block;
+  display: block;
   width: 12%;
   position: relative;
   border: none;
-  background: red;
+  transform-style: preserve-3d;
+  height: 243px;
 }
-.card:active {
-	transform: scale(0.97);
-}
+
 
 .on, .off {
-  width: 100%;
-  height: 100%;
-  padding: 5px;
-  backface-visibility: hidden;
-  
+  position: absolute;
+  left: 0;
 }
 
-.off {
-	position: absolute;
-  transform: rotateY(0deg);
-}

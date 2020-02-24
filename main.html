@@ -5,9 +5,10 @@
   <meta charset="UTF-8">
     <title>Memory Game</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/game.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/game.css"> -->
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/game.js"></script>
+	<script type="module" src="js/game.js"></script>
 </head>
 <body>
 	<div class="container container-mod">
@@ -22,7 +23,18 @@
 				</div>
 			</div>
 			<div class="col-md-12" id="main-game">
-				<div id="main"></div>
+				<div id="main">
+					<div class="card-container">
+						<div class="card">
+							<div class="one_face card__front">
+								<img src="img/pic0.png">
+							</div>
+							<div class="one_face card__backside">
+								<img src="img/pic1.png">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

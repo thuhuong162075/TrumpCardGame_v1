@@ -1,0 +1,44 @@
+$card-width: 140px;
+$card-height: 243px;
+
+#main {
+	display: flex;
+	flex-wrap: wrap;
+	.card-container {
+		width: $card-width;
+		height: $card-height;
+		.card {
+			width: inherit;
+			height: 100%;
+			border-radius: 5px;
+			position: relative;
+			text-align: center;
+			transition: transform 0.8s;
+			transform-style: preserve-3d;
+			pointer-events: none;
+			.one_face {
+				width: inherit;
+				height: 100%;
+				position: absolute;
+			  	backface-visibility: hidden;
+			  	img	{
+			  		width: inherit;
+			  		height: 100%;
+			  	}
+			}
+			&__font {
+				background-color: #bbb;
+				color: black;
+			}
+			&__backside {
+				background-color: #555;
+				transform: rotateY(180deg);
+			}
+		}
+	}
+	.show {
+		.card {
+			transform: rotateY(180deg);
+		}
+	}
+}

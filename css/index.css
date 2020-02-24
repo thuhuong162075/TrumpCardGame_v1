@@ -1,0 +1,49 @@
+/* line 4, index.scss */
+#main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+  /* line 7, index.scss */
+  #main .card-container {
+    width: 140px;
+    height: 243px; }
+    /* line 10, index.scss */
+    #main .card-container .card {
+      width: inherit;
+      height: 100%;
+      border-radius: 5px;
+      position: relative;
+      text-align: center;
+      -webkit-transition: -webkit-transform 0.8s;
+      transition: -webkit-transform 0.8s;
+      transition: transform 0.8s;
+      transition: transform 0.8s, -webkit-transform 0.8s;
+      -webkit-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      pointer-events: none; }
+      /* line 19, index.scss */
+      #main .card-container .card .one_face {
+        width: inherit;
+        height: 100%;
+        position: absolute;
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden; }
+        /* line 24, index.scss */
+        #main .card-container .card .one_face img {
+          width: inherit;
+          height: 100%; }
+      /* line 29, index.scss */
+      #main .card-container .card__font {
+        background-color: #bbb;
+        color: black; }
+      /* line 33, index.scss */
+      #main .card-container .card__backside {
+        background-color: #555;
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg); }
+  /* line 40, index.scss */
+  #main .show .card {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg); }

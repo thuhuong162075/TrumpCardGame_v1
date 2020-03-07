@@ -6,120 +6,68 @@ w.card = new Card;
 var click=0;
 //Lưu this của lần click 1
 var ctrl1;
-//lưu this của lần click 2
-var ctrl2;
-//lưu vị trí của lần click 1
-var location1;
-//lưu vị trí của lần click 2
-var location2;
-//mảng ảnh 
-var array_img=[];
 // lưu số tấm thẻ được lật lên 
 var card_flip=0;
+//
+var core = 0;
+// lưu level
+var level=1;
 
-//jquery
+
 $(document).ready(function(){
 	// createGame();
-	level(1);
+	createGame(level);
+	setInfo();
 });
 
-//hàm tạo game 
-function createGame(){
-	printInterface();
+function setInfo(){
+	$("#card_flip").html("<span> Cards Flipped: " + card_flip + "</span>");
+	$("#level").html("<span> Level " + level + "</span>")
 }
 
-// tạo mảng lưu ảnh 
-function NextLevel(){
-	for(var i=1;i<=2;i++){
-		array_img.push("img/pic"+i+".png","img/pic"+i+".png");
-	}
-	random();
-}
-
-//tạo hàm in giao diện 
-function printInterface(){
-	NextLevel();
-	var shtml="";
-	for(var i=0;i<array_img.length;i++){
-		shtml = shtml + "<div class='card'><img class='off' id='off"+i+"' onclick='Selec_img(this,"+i+");' width='100%' src='img/pic0.png'><img class='on' id='on"+i+"'src='"+array_img[i]+"'></div>"
-	}
-	$('#main').html(shtml);
-	$('#card_flip').html("<span>Cards Flipped: "+card_flip+"</span>")
-}
-
-function Selec_img(ctrl,i){
-	if(click==2) return;
-	if(click==0){
-		ctrl1=ctrl;
-		location1=i;
-		$(ctrl1).css('transform','rotateY(180deg)');
-		$("#on"+location1).css('transform','rotateY(0deg)');
-		click=1;
-	}else{
-		ctrl2=ctrl;
-		location2=i;
-		$(ctrl2).css('transform','rotateY(180deg)');
-		$("#on"+location2).css('transform','rotateY(0deg)');
-		click=2;
-		if(ctrl1 != ctrl2){
-			setTimeout(Check,600);
-		}else{
-			click=1;
-			return;
-		}
-	}
-}
-
-function Check(){
-	click=0;
-	if(array_img[location1] == array_img[location2]){
-		$('#on'+location1).css('visibility','hidden');
-		$('#off'+location1).css('visibility','hidden');
-		$('#on'+location2).css('visibility','hidden');
-		$('#off'+location2).css('visibility','hidden');
-		card_flip++;
-		$('#card_flip').html("<span>Cards Flipped: "+card_flip+"</span>");
-		
-	}else {
-
-		$("#on"+location1).css('transform','rotateY(180deg)');
-		//$("#off"+location1).css('transform','rotateY(0deg)');
-		$("#on"+location2).css('transform','rotateY(180deg)');
-		//$("#off"+location2).css('transform','rotateY(0deg)');
-	}
-
-	if(card_flip==array_img.length/2){
-			alert('WIN');
-		}
-}
 function random(arr=array_img){
 	arr.sort(function(){
 		return 0.5-Math.random();
 	});
 }
 
-function level(lev=1){
-	lev = lev*2+2;
+function createGame(lev=1){
+	lev = lev*2;
 	let html = '';
 	let arrRandom = [];
+
 	for (var i = lev/2; i > 0; i--) {
 		arrRandom.push(i);
 		arrRandom.push(i);
 		random(arrRandom);
 	}
+	console.log(arrRandom);
 
-	while(lev > 0) {
-		html += w.card.init('img/pic'+arrRandom[lev-1]+'.png');
-		lev--;
+	for(var i=0;i<arrRandom.length;i++){
+		html += w.card.init('img/pic'+arrRandom[i]+'.png');
 	}
+
 	$('#main').empty().append(html);
-	choseCard();
+	if (level == 1) {
+		$('#main').css('width', String(150*2) + 'px');
+	} else if(level <= 7) {
+		$('#main').css('width', String(150*level) + 'px');
+	} else {
+
+		for(i=7; i >= 4; i--){
+			if(arrRandom.length%i==0){
+				$('#main').css('width', String(150*i) + 'px');
+				break;
+			}
+		}
+	}
+	
+	choseCard(arrRandom.length);
 }
 
-function choseCard() {
+function choseCard(harr) {
 	$('.card-container').click(function(e) {
 		if (this == ctrl1) return;
-
 		$(this).addClass('show');
 		$('#main').css('pointer-events', 'none');
 
@@ -127,19 +75,36 @@ function choseCard() {
 			ctrl1 = this;
 			$('#main').css('pointer-events', 'auto');
 		} else {
+
 			let valueCtrl1 = $(ctrl1).find('.card__backside img').attr('src');
 			if ($(this).find('.card__backside img').attr('src') == valueCtrl1) {
 				setTimeout(function() {
-					$('.show').hide();
+					card_flip++;
+					core++;
+					$('.show').css('visibility','hidden');
 					$('#main').css('pointer-events', 'auto');
+
+					$('#card_flip').html("<span> Cards Flipped: " + card_flip + "</span>");
+
+					alertGame(harr);
 				}, 1000);
 			} else {
+
 				setTimeout(function() {
 					$('.show').removeClass('show');
 					$('#main').css('pointer-events', 'auto');
 				}, 1000);
 			}
 		}
-		click++;
+		click++;	
 	})
+}
+function alertGame(harr){
+	if(core == harr/2){
+		core = 0;
+		alert('WIN');
+		level++;
+		$("#level").html("<span> Level " + level + "</span>")
+		createGame(level);
+	}	
 }

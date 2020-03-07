@@ -4,40 +4,41 @@
 <head>
   <meta charset="UTF-8">
     <title>Memory Game</title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="css/game.css"> -->
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="module" src="js/game.js"></script>
+
 </head>
 <body>
-	<div class="container container-mod">
-		<div class="game_title">
-			<h1>Memory Card</h1>
-		</div>
-		<div class="row game">
-			<div class="col-md-12" id="infogame">
-				<div class="info_game_mod">
-					<span id="card_flip"></span>, 
-					<span id="time">Time:</span>
-				</div>
+		<div class="container container-mod">
+			<div class="game_title">
+				<h1>Memory Card</h1>
 			</div>
-			<div class="col-md-12" id="main-game">
-				<div id="main">
-					<div class="card-container">
-						<div class="card">
-							<div class="one_face card__front">
-								<img src="img/pic0.png">
-							</div>
-							<div class="one_face card__backside">
-								<img src="img/pic1.png">
+			<div class="row game">
+				<div class="infogame col-md-12">
+					<div class="info_game_mod">
+						<p id="card_flip"></p>
+						<span>; </span> 
+						<p id="level">Level: 1</p>
+					</div>
+				</div>
+				<div class="col-md-12" id="main-game">
+					<div id="main">
+						<div class="card-container">
+							<div class="card">
+								<div class="one_face card__front">
+									<img src="img/pic0.png">
+								</div>
+								<div class="one_face card__backside">
+									<img src="img/pic1.png">
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	<script type="module" src="js/game.js"></script>
 </body>
 </html>
 

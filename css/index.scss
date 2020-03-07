@@ -1,12 +1,51 @@
 $card-width: 140px;
 $card-height: 243px;
 
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.container {
+	margin-right: 10%;
+	margin-left: 10%;
+	width: 80%;
+
+	.game_title {
+		text-align: center;
+		padding: 20px;
+		font-size: 25px;
+		color: red;
+	}
+	.row.game {
+		.infogame {
+			padding: 15px;
+			text-align: center;
+			.info_game_mod {
+				#card_flip {
+					display: inline-block;
+				}
+				#level {
+					display: inline-block;
+				}
+			}
+		}
+		#main-game {
+			display: flex;
+			justify-content: center;
+		}
+	}
+}
+
 #main {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	.card-container {
 		width: $card-width;
 		height: $card-height;
+		margin-right: 10px;
+		margin-bottom: 10px;
 		.card {
 			width: inherit;
 			height: 100%;

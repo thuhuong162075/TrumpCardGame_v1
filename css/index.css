@@ -18,6 +18,14 @@
       display: inline-block; }
     .container .row.game .infogame .info_game_mod #level {
       display: inline-block; }
+    .container .row.game .infogame .info_game_mod .myProgress {
+      margin: 30px auto;
+      width: 80%;
+      background-color: #ddd;
+      height: 30px; }
+      .container .row.game .infogame .info_game_mod .myProgress .myBar {
+        height: 30px;
+        background-color: #4CAF50; }
   .container .row.game #main-game {
     display: flex;
     justify-content: center; }

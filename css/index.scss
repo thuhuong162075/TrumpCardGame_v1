@@ -28,6 +28,16 @@ $card-height: 243px;
 				#level {
 					display: inline-block;
 				}
+				.myProgress {
+					margin: 30px auto;
+				  	width: 80%;
+				  	background-color: #ddd;
+				  	height: 30px;
+				  	.myBar {
+					  	height: 30px;
+					  	background-color: #4CAF50;
+					}
+				}
 			}
 		}
 		#main-game {

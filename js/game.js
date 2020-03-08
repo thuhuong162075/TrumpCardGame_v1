@@ -12,7 +12,16 @@ var card_flip=0;
 var core = 0;
 // lưu level
 var level=1;
-
+// phút chơi
+var m_start=0;
+//giây chơi
+var s_start=0;
+// độ rộng của thanh progressbar hiện tại 
+var widthCurrent=0;
+// độ rộng max của thanh progressbar 
+var maxWidth=0;
+// biến time dùng khi tính thời gian
+var timer;
 
 $(document).ready(function(){
 	// createGame();
@@ -23,6 +32,12 @@ $(document).ready(function(){
 function setInfo(){
 	$("#card_flip").html("<span> Cards Flipped: " + card_flip + "</span>");
 	$("#level").html("<span> Level " + level + "</span>")
+
+	$('.myBar').css('width',Math.round(
+		(widthCurrent/maxWidth)*100)+'%');
+	timer = setInterval(function(){
+		caculatorTime();
+	},1000);
 }
 
 function random(arr=array_img){
@@ -41,7 +56,6 @@ function createGame(lev=1){
 		arrRandom.push(i);
 		random(arrRandom);
 	}
-	console.log(arrRandom);
 
 	for(var i=0;i<arrRandom.length;i++){
 		html += w.card.init('img/pic'+arrRandom[i]+'.png');
@@ -50,6 +64,8 @@ function createGame(lev=1){
 	$('#main').empty().append(html);
 	if (level == 1) {
 		$('#main').css('width', String(150*2) + 'px');
+		m_start = 1;
+		s_start = 0;
 	} else if(level <= 7) {
 		$('#main').css('width', String(150*level) + 'px');
 	} else {
@@ -61,8 +77,26 @@ function createGame(lev=1){
 			}
 		}
 	}
+
+	maxWidth = m_start*60 + s_start;
+	widthCurrent = maxWidth;
+
+	$('.myBar').css('width',Math.round(
+		(widthCurrent/maxWidth)*100)+'%');
+	timer = setInterval(function(){
+		caculatorTime();
+	},1000);
 	
 	choseCard(arrRandom.length);
+}
+function caculatorTime(){
+	$('.myBar').css('width',Math.round(
+		(--widthCurrent/maxWidth)*100)+'%');
+	//kiểm tra giá trị về 0 thì ngừng setInterval
+	if(widthCurrent == 0){
+		alert('Hết giờ');
+		StopGame();
+	}
 }
 
 function choseCard(harr) {
@@ -105,6 +139,12 @@ function alertGame(harr){
 		alert('WIN');
 		level++;
 		$("#level").html("<span> Level " + level + "</span>")
+		StopGame();
 		createGame(level);
 	}	
 }
+ function StopGame(){
+ 	if(typeof timer!="undefined") {
+ 		clearInterval(timer);
+ 	}
+ }

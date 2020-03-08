@@ -2,6 +2,9 @@
   padding: 0;
   margin: 0; }
 
+body {
+  background: url(../img/bg1.png); }
+
 .container {
   margin-right: 10%;
   margin-left: 10%;

@@ -27,7 +27,26 @@ $(document).ready(function(){
 	// createGame();
 	createGame(level);
 	setInfo();
+
 });
+// JavaScript
+// Wrap the native DOM audio element play function and handle any autoplay errors
+Audio.prototype.play = (function(play) {
+return function () {
+  var audio = this,
+      args = arguments,
+      promise = play.apply(audio, args);
+  if (promise !== undefined) {
+    promise.catch(_ => {
+      // Autoplay was prevented. This is optional, but add a button to start playing.
+      var el = document.createElement("button");
+      el.innerHTML = "Play";
+      el.addEventListener("click", function(){play.apply(audio, args);});
+      this.parentNode.insertBefore(el, this.nextSibling)
+    });
+  }
+};
+})(Audio.prototype.play);
 
 function setInfo(){
 	$("#card_flip").html("<span> Cards Flipped: " + card_flip + "</span>");
@@ -47,6 +66,7 @@ function random(arr=array_img){
 }
 
 function createGame(lev=1){
+	document.getElementById('audio1').play();
 	lev = lev*2;
 	let html = '';
 	let arrRandom = [];
@@ -86,7 +106,7 @@ function createGame(lev=1){
 	timer = setInterval(function(){
 		caculatorTime();
 	},1000);
-	
+
 	choseCard(arrRandom.length);
 }
 function caculatorTime(){
@@ -148,3 +168,4 @@ function alertGame(harr){
  		clearInterval(timer);
  	}
  }
+

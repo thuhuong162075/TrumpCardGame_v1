@@ -14,7 +14,6 @@ body {
 	margin-right: 10%;
 	margin-left: 10%;
 	width: 80%;
-
 	.game_title {
 		text-align: center;
 		padding: 20px;
@@ -95,3 +94,56 @@ body {
 		}
 	}
 }
+#notification {
+	background-color: rgba(0,0,0,.25);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 99999;
+	display: none;
+    align-items: center;
+	.wrapper {
+		align-items: center;
+		background-color: rgba(0,0,0,.25);
+		border-radius: 3px;
+		width: 400px;
+		text-align: center;
+		.notigame {
+			background-color: rgb(256,256,256);
+			border-radius: 2px;
+			padding: 24px;
+			position: relative;
+			h3 {
+				color: rgb(0,0,0);
+				font-size: 1.5em;
+				margin: 0 0 1.25em;
+				padding: 0;
+			}
+			button {
+				background-color: #DC4F4F;
+				border: 1px solid #DC4F4F;
+				color: rgb(256,256,256);
+				padding: .55em .9em;
+				border-radius: 5px;
+			}
+			&.menu {
+				display: none;
+			}
+			&.lose {
+				display: none;
+			}
+			&.win {
+				display: none;
+			}
+			&.final {
+				display: none;
+			}
+		}
+	}
+
+}
+

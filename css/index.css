@@ -68,4 +68,47 @@ body {
   #main .show .card {
     transform: rotateY(180deg); }
 
+#notification {
+  background-color: rgba(0, 0, 0, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 99999;
+  display: none;
+  align-items: center; }
+  #notification .wrapper {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    width: 400px;
+    text-align: center; }
+    #notification .wrapper .notigame {
+      background-color: white;
+      border-radius: 2px;
+      padding: 24px;
+      position: relative; }
+      #notification .wrapper .notigame h3 {
+        color: black;
+        font-size: 1.5em;
+        margin: 0 0 1.25em;
+        padding: 0; }
+      #notification .wrapper .notigame button {
+        background-color: #DC4F4F;
+        border: 1px solid #DC4F4F;
+        color: white;
+        padding: .55em .9em;
+        border-radius: 5px; }
+      #notification .wrapper .notigame.menu {
+        display: none; }
+      #notification .wrapper .notigame.lose {
+        display: none; }
+      #notification .wrapper .notigame.win {
+        display: none; }
+      #notification .wrapper .notigame.final {
+        display: none; }
+
 /*# sourceMappingURL=index.css.map */

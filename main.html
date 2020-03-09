@@ -10,10 +10,23 @@
 
 </head>
 <body>
-	<audio id="audio1" autoplay>
+	<audio id="audio1">
 		<source src="audio/audio1.mp3" type="audio/mpeg">
 	</audio>
-	<div class="container container-mod">
+	<audio id="turn-over">
+		<source src="audio/turnOver.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="same-card">
+		<source src="audio/sameCard.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="fail">
+		<source src="audio/fail.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="success">
+		<source src="audio/success.mp3" type="audio/mpeg">
+	</audio>
+
+	<div class="container container-mod" id="infogame" style="display: none;">
 		<div class="game_title">
 			<h1>Memory Card</h1>
 		</div>
@@ -42,6 +55,37 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div id="notification">
+		<div class="wrapper">
+			<div class="notigame menu">
+				<h3>MENU</h3>
+				<button class="button" id="button1" type="button">
+					Chơi mới
+				</button>
+			</div>
+			<div class="notigame lose" >
+				<h3>HẾT GIỜ</h3>
+				<button class="button" type="button">
+					Chơi lại
+				</button>
+			</div>
+			<div class="notigame win" >
+				<h3>THẮNG</h3>
+				<button class="button"  type="button">
+					Qua màn
+				</button>
+			</div>	
+			<div class="notigame final" >
+				<div class="notification-final">
+					<h3>Chọn New Game để chơi lại </h3>
+					<button class="button" type="button">
+					Chơi mới 
+				</button>
+				</div>
+			</div>			
 		</div>
 	</div>
 		

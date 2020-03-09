@@ -3,7 +3,7 @@ import Card from './card.js';
 var w = window;
 w.card = new Card;
 //Kiểm tra số lần click
-var click=0;
+var click;
 //Lưu this của lần click 1
 var ctrl1;
 // lưu số tấm thẻ được lật lên 
@@ -22,35 +22,48 @@ var widthCurrent=0;
 var maxWidth=0;
 // biến time dùng khi tính thời gian
 var timer;
+var checkNoti = false;
 
 $(document).ready(function(){
 	// createGame();
-	createGame(level);
-	setInfo();
-
+	OpenNoti('menu');
+	//createGame(level);
+	$("#button1").click(function(){
+	    var $this = $(this);
+	    if($this.data('clicked')) {
+	        console.log("chưa click")
+	    }
+	    else {
+	        SelectMenu();
+	    }
+	});
 });
-// JavaScript
-// Wrap the native DOM audio element play function and handle any autoplay errors
-Audio.prototype.play = (function(play) {
-return function () {
-  var audio = this,
-      args = arguments,
-      promise = play.apply(audio, args);
-  if (promise !== undefined) {
-    promise.catch(_ => {
-      // Autoplay was prevented. This is optional, but add a button to start playing.
-      var el = document.createElement("button");
-      el.innerHTML = "Play";
-      el.addEventListener("click", function(){play.apply(audio, args);});
-      this.parentNode.insertBefore(el, this.nextSibling)
-    });
-  }
-};
-})(Audio.prototype.play);
+
+function SelectMenu() {
+	CloseNoti();
+	setInfo();
+ 	createGame(1);
+}
+
+function OpenNoti(str){
+
+	if(!checkNoti){
+		$('#notification').css('display','flex');
+		if(str= 'menu'){
+			$('.menu').css('display','block');
+		}
+		checkNoti = true;
+	}
+}
+function CloseNoti(){
+	checkNoti = false;
+	$('#notification').css('display','none');
+}
 
 function setInfo(){
 	$("#card_flip").html("<span> Cards Flipped: " + card_flip + "</span>");
-	$("#level").html("<span> Level " + level + "</span>")
+	$("#level").html("<span> Level " + level + "</span>");
+	$("#infogame").css('display','block');
 
 	$('.myBar').css('width',Math.round(
 		(widthCurrent/maxWidth)*100)+'%');
@@ -66,7 +79,7 @@ function random(arr=array_img){
 }
 
 function createGame(lev=1){
-	document.getElementById('audio1').play();
+	PlaySound('audio1');
 	lev = lev*2;
 	let html = '';
 	let arrRandom = [];
@@ -112,8 +125,12 @@ function createGame(lev=1){
 function caculatorTime(){
 	$('.myBar').css('width',Math.round(
 		(--widthCurrent/maxWidth)*100)+'%');
+
 	//kiểm tra giá trị về 0 thì ngừng setInterval
+
 	if(widthCurrent == 0){
+		StopSound('audio1');
+		PlaySound('fail');
 		alert('Hết giờ');
 		StopGame();
 	}
@@ -135,6 +152,7 @@ function choseCard(harr) {
 				setTimeout(function() {
 					card_flip++;
 					core++;
+					PlaySound('same-card');
 					$('.show').css('visibility','hidden');
 					$('#main').css('pointer-events', 'auto');
 
@@ -143,10 +161,12 @@ function choseCard(harr) {
 					alertGame(harr);
 				}, 1000);
 			} else {
-
 				setTimeout(function() {
+					document.getElementById('turn-over').play();
+					PlaySound('turn-over');
 					$('.show').removeClass('show');
 					$('#main').css('pointer-events', 'auto');
+
 				}, 1000);
 			}
 		}
@@ -156,6 +176,8 @@ function choseCard(harr) {
 function alertGame(harr){
 	if(core == harr/2){
 		core = 0;
+		StopSound('audio1');
+		PlaySound('success');
 		alert('WIN');
 		level++;
 		$("#level").html("<span> Level " + level + "</span>")
@@ -169,3 +191,29 @@ function alertGame(harr){
  	}
  }
 
+function PlaySound(str){
+	//document.getElementById(str).load();
+	//document.getElementById(str).play();
+}
+function StopSound(str){
+	//document.getElementById(str).pause();
+}
+
+// JavaScript
+// Wrap the native DOM audio element play function and handle any autoplay errors
+Audio.prototype.play = (function(play) {
+return function () {
+  var audio = this,
+      args = arguments,
+      promise = play.apply(audio, args);
+  if (promise !== undefined) {
+    promise.catch(_ => {
+      // Autoplay was prevented. This is optional, but add a button to start playing.
+      var el = document.createElement("button");
+      el.innerHTML = "Play";
+      el.addEventListener("click", function(){play.apply(audio, args);});
+      this.parentNode.insertBefore(el, this.nextSibling)
+    });
+  }
+};
+})(Audio.prototype.play);

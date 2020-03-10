@@ -10,6 +10,9 @@
 
 </head>
 <body>
+	<audio id="menu">
+		<source src="audio/menu.mp3" type="audio/mpeg">
+	</audio>
 	<audio id="audio1">
 		<source src="audio/audio1.mp3" type="audio/mpeg">
 	</audio>
@@ -62,20 +65,22 @@
 		<div class="wrapper">
 			<div class="notigame menu">
 				<h3>MENU</h3>
-				<button class="button" id="button1" type="button">
+				<button class="button newplay" id="button1" type="button">
 					Chơi mới
 				</button>
 			</div>
 			<div class="notigame lose" >
 				<h3>HẾT GIỜ</h3>
-				<button class="button" type="button">
+				<p class="totalPoint"></p>
+				<button class="button againplay" type="button">
 					Chơi lại
 				</button>
 			</div>
 			<div class="notigame win" >
 				<h3>THẮNG</h3>
-				<button class="button"  type="button">
-					Qua màn
+				<p class="level-continue"></p>
+				<button class="button continue"  type="button">
+					Tiếp tục
 				</button>
 			</div>	
 			<div class="notigame final" >

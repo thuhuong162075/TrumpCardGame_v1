@@ -93,15 +93,19 @@ body {
       position: relative; }
       #notification .wrapper .notigame h3 {
         color: black;
-        font-size: 1.5em;
-        margin: 0 0 1.25em;
-        padding: 0; }
+        font-size: 35px;
+        margin: 0 0 20px;
+        padding: 0;
+        font-family: tahoma; }
       #notification .wrapper .notigame button {
         background-color: #DC4F4F;
         border: 1px solid #DC4F4F;
         color: white;
         padding: .55em .9em;
         border-radius: 5px; }
+      #notification .wrapper .notigame p {
+        font-size: 25px;
+        padding: 10px; }
       #notification .wrapper .notigame.menu {
         display: none; }
       #notification .wrapper .notigame.lose {

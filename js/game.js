@@ -3,12 +3,12 @@ import Card from './card.js';
 var w = window;
 w.card = new Card;
 //Kiểm tra số lần click
-var click;
+var click=0;
 //Lưu this của lần click 1
 var ctrl1;
 // lưu số tấm thẻ được lật lên 
 var card_flip=0;
-//
+// tính tổng điểm 
 var core = 0;
 // lưu level
 var level=1;
@@ -22,13 +22,13 @@ var widthCurrent=0;
 var maxWidth=0;
 // biến time dùng khi tính thời gian
 var timer;
+//kiểm tra các thông báo 
 var checkNoti = false;
 
 $(document).ready(function(){
-	// createGame();
+	PlaySound('menu');
 	OpenNoti('menu');
-	//createGame(level);
-	$("#button1").click(function(){
+	$(".newplay").click(function(){
 	    var $this = $(this);
 	    if($this.data('clicked')) {
 	        console.log("chưa click")
@@ -37,45 +37,72 @@ $(document).ready(function(){
 	        SelectMenu();
 	    }
 	});
+	$(".continue").click(function(){
+	    var $this = $(this);
+	    if($this.data('clicked')) {
+	        console.log("chưa click")
+	    }
+	    else {
+	    	StopSound('success');
+	    	CloseNoti();
+	        createGame(level);
+	    }
+	});
+	$(".againplay").click(function(){
+	    var $this = $(this);
+	    if($this.data('clicked')) {
+	        console.log("chưa click")
+	    }
+	    else {
+	    	card_flip = 0;
+	    	level=1;
+	    	SelectMenu();
+	    }
+	});
 });
 
 function SelectMenu() {
+	StopSound('menu');
 	CloseNoti();
 	setInfo();
  	createGame(1);
 }
 
 function OpenNoti(str){
-
 	if(!checkNoti){
 		$('#notification').css('display','flex');
-		if(str= 'menu'){
+		if(str == 'menu'){
 			$('.menu').css('display','block');
+		}
+		if(str == 'lose'){
+			$('.totalPoint').html("Số điểm bạn đạt được: " + card_flip);
+			$('.lose').css('display','block');
+		}
+		if(str == 'win'){
+			$('.level-continue').html("Bàn tiếp theo: " + (level+1) );
+			$('.win').css('display','block');
+		}
+		if(str == 'final'){
+			$('.final').css('display','block');
 		}
 		checkNoti = true;
 	}
 }
+
 function CloseNoti(){
 	checkNoti = false;
 	$('#notification').css('display','none');
+	$('.menu').css('display','none');
+	$('.lose').css('display','none');
+	$('.win').css('display','none');
+	$('.final').css('display','none');
 }
 
+// cài đặt các thông tin đầu vào
 function setInfo(){
 	$("#card_flip").html("<span> Cards Flipped: " + card_flip + "</span>");
 	$("#level").html("<span> Level " + level + "</span>");
 	$("#infogame").css('display','block');
-
-	$('.myBar').css('width',Math.round(
-		(widthCurrent/maxWidth)*100)+'%');
-	timer = setInterval(function(){
-		caculatorTime();
-	},1000);
-}
-
-function random(arr=array_img){
-	arr.sort(function(){
-		return 0.5-Math.random();
-	});
 }
 
 function createGame(lev=1){
@@ -102,7 +129,6 @@ function createGame(lev=1){
 	} else if(level <= 7) {
 		$('#main').css('width', String(150*level) + 'px');
 	} else {
-
 		for(i=7; i >= 4; i--){
 			if(arrRandom.length%i==0){
 				$('#main').css('width', String(150*i) + 'px');
@@ -122,19 +148,8 @@ function createGame(lev=1){
 
 	choseCard(arrRandom.length);
 }
-function caculatorTime(){
-	$('.myBar').css('width',Math.round(
-		(--widthCurrent/maxWidth)*100)+'%');
 
-	//kiểm tra giá trị về 0 thì ngừng setInterval
 
-	if(widthCurrent == 0){
-		StopSound('audio1');
-		PlaySound('fail');
-		alert('Hết giờ');
-		StopGame();
-	}
-}
 
 function choseCard(harr) {
 	$('.card-container').click(function(e) {
@@ -178,42 +193,61 @@ function alertGame(harr){
 		core = 0;
 		StopSound('audio1');
 		PlaySound('success');
-		alert('WIN');
+		OpenNoti('win');
+		clearInterval(timer);
 		level++;
 		$("#level").html("<span> Level " + level + "</span>")
-		StopGame();
-		createGame(level);
 	}	
 }
- function StopGame(){
+
+
+
+function caculatorTime(){
+	$('.myBar').css('width',Math.round(
+		(--widthCurrent/maxWidth)*100)+'%');
+	//kiểm tra giá trị về 0 thì ngừng setInterval
+	if(widthCurrent == 0){
+		StopSound('audio1');
+		PlaySound('fail');
+		OpenNoti('lose');
+		StopGame();
+	}
+}
+
+function StopGame(){
  	if(typeof timer!="undefined") {
  		clearInterval(timer);
  	}
- }
+}
 
 function PlaySound(str){
-	//document.getElementById(str).load();
-	//document.getElementById(str).play();
+	document.getElementById(str).play();
 }
 function StopSound(str){
-	//document.getElementById(str).pause();
+	document.getElementById(str).pause();
+}
+
+function random(arr=array_img){
+	arr.sort(function(){
+		return 0.5-Math.random();
+	});
 }
 
 // JavaScript
 // Wrap the native DOM audio element play function and handle any autoplay errors
 Audio.prototype.play = (function(play) {
-return function () {
-  var audio = this,
-      args = arguments,
-      promise = play.apply(audio, args);
-  if (promise !== undefined) {
-    promise.catch(_ => {
-      // Autoplay was prevented. This is optional, but add a button to start playing.
-      var el = document.createElement("button");
-      el.innerHTML = "Play";
-      el.addEventListener("click", function(){play.apply(audio, args);});
-      this.parentNode.insertBefore(el, this.nextSibling)
-    });
-  }
-};
+	return function () {
+	  	var audio = this,
+	      	args = arguments,
+	      	promise = play.apply(audio, args);
+	  	if (promise !== undefined) {
+	    	promise.catch(_ => {
+		      	// Autoplay was prevented. This is optional, but add a button to start playing.
+		      	var el = document.createElement("button");
+		      	el.innerHTML = "Play";
+		      	el.addEventListener("click", function(){play.apply(audio, args);});
+		      	this.parentNode.insertBefore(el, this.nextSibling)
+	    	});
+	  	}
+	};
 })(Audio.prototype.play);

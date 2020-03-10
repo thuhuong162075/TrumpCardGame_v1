@@ -26,6 +26,7 @@ var timer;
 var checkNoti = false;
 
 $(document).ready(function(){
+	//createGame(5);
 	PlaySound('menu');
 	OpenNoti('menu');
 	$(".newplay").click(function(){
@@ -106,6 +107,7 @@ function setInfo(){
 }
 
 function createGame(lev=1){
+
 	PlaySound('audio1');
 	lev = lev*2;
 	let html = '';
@@ -122,17 +124,20 @@ function createGame(lev=1){
 	}
 
 	$('#main').empty().append(html);
+	m_start = 1;
+	s_start = 0;
 	if (level == 1) {
-		$('#main').css('width', String(150*2) + 'px');
-		m_start = 1;
-		s_start = 0;
-	} else if(level <= 7) {
-		$('#main').css('width', String(150*level) + 'px');
+		$('#main').css('width', String(75*2) + 'px');
+		
+	} else if(level <= 11) {
+		$('#main').css('width', String(75*level) + 'px');
 	} else {
-		for(i=7; i >= 4; i--){
+		for(i=11; i >= 4; i--){
 			if(arrRandom.length%i==0){
-				$('#main').css('width', String(150*i) + 'px');
+				$('#main').css('width', String(75*i) + 'px');
 				break;
+			}else {
+				$('#main').css('width', String(75*11) + 'px');
 			}
 		}
 	}

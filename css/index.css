@@ -3,7 +3,8 @@
   margin: 0; }
 
 body {
-  background: url(../img/bg1.png); }
+  background: url(../img/bg.png); 
+}
 
 .container {
   margin-right: 10%;
@@ -38,9 +39,9 @@ body {
   flex-wrap: wrap;
   justify-content: center; }
   #main .card-container {
-    width: 70px;
-    height: 120px;
-    margin-right: 5px;
+    width: 100px;
+    height: 160px;
+    margin-right: 10px;
     margin-bottom: 5px; }
     #main .card-container .card {
       width: inherit;

@@ -6,6 +6,8 @@ w.card = new Card;
 var click=0;
 //Lưu this của lần click 1
 var ctrl1;
+//Lưu this của lần click 2
+var ctrl2;
 // lưu số tấm thẻ được lật lên 
 var card_flip=0;
 // tính tổng điểm 
@@ -27,7 +29,11 @@ var checkNoti = false;
 
 $(document).ready(function(){
 	//createGame(5);
-	PlaySound('menu');
+	let sound = document.getElementById("menu");
+	sound.currentTime = 0;
+	sound.loop = true; 
+	sound.play();
+	//PlaySound('menu');
 	OpenNoti('menu');
 	$(".newplay").click(function(){
 	    var $this = $(this);
@@ -107,8 +113,12 @@ function setInfo(){
 }
 
 function createGame(lev=1){
-
-	PlaySound('audio1');
+	StopSound('success');
+	let audio1 = document.getElementById("audio1");
+	audio1.currentTime = 0;
+	audio1.loop = true; 
+	audio1.play();
+	//PlaySound('audio1');
 	lev = lev*2;
 	let html = '';
 	let arrRandom = [];
@@ -127,17 +137,17 @@ function createGame(lev=1){
 	m_start = 1;
 	s_start = 0;
 	if (level == 1) {
-		$('#main').css('width', String(75*2) + 'px');
+		$('#main').css('width', String(110*2) + 'px');
 		
-	} else if(level <= 11) {
-		$('#main').css('width', String(75*level) + 'px');
+	} else if(level <= 9) {
+		$('#main').css('width', String(110*level) + 'px');
 	} else {
-		for(i=11; i >= 4; i--){
+		for(i=9; i >= 6; i--){
 			if(arrRandom.length%i==0){
-				$('#main').css('width', String(75*i) + 'px');
+				$('#main').css('width', String(110*i) + 'px');
 				break;
 			}else {
-				$('#main').css('width', String(75*11) + 'px');
+				$('#main').css('width', String(110*9) + 'px');
 			}
 		}
 	}
@@ -158,26 +168,28 @@ function createGame(lev=1){
 
 function choseCard(harr) {
 	$('.card-container').click(function(e) {
+		if (click == 2) return;
 		if (this == ctrl1) return;
+
 		$(this).addClass('show');
 		$('#main').css('pointer-events', 'none');
-
-		if (click%2 == 0) {
+		if (click == 0) {
+			click = 1;
 			ctrl1 = this;
 			$('#main').css('pointer-events', 'auto');
 		} else {
-
+			click = 2;
 			let valueCtrl1 = $(ctrl1).find('.card__backside img').attr('src');
 			if ($(this).find('.card__backside img').attr('src') == valueCtrl1) {
 				setTimeout(function() {
 					card_flip++;
 					core++;
+					click = 0;
 					PlaySound('same-card');
 					$('.show').css('visibility','hidden');
 					$('#main').css('pointer-events', 'auto');
 
 					$('#card_flip').html("<span> Cards Flipped: " + card_flip + "</span>");
-
 					alertGame(harr);
 				}, 1000);
 			} else {
@@ -186,18 +198,23 @@ function choseCard(harr) {
 					PlaySound('turn-over');
 					$('.show').removeClass('show');
 					$('#main').css('pointer-events', 'auto');
-
+					click = 0;
+					ctrl1 = {};
 				}, 1000);
 			}
-		}
-		click++;	
+		}	
 	})
 }
 function alertGame(harr){
 	if(core == harr/2){
+	//if(1==1){
 		core = 0;
 		StopSound('audio1');
-		PlaySound('success');
+		let success = document.getElementById("success");
+		success.currentTime = 0;
+		success.loop = true; 
+		success.play();
+		//PlaySound('success');
 		OpenNoti('win');
 		clearInterval(timer);
 		level++;

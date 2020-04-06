@@ -24,16 +24,20 @@ $card-height: 150px;
 }
 body {
 	background-image: url("../img/bg.png");
+	//background-color: #EDE2C7;
 }
 
 .container {
-	
-	padding-right: 10%;
-	padding-left: 10%;
+	box-shadow: 0 4px 8px 10px rgba(0, 0, 0, .5), 0 6px 20px 0 rgba(0, 0, 0, .5);
+	border: 1px solid #312d3c;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	margin-right: 10%;
+	margin-left: 10%;
+	margin-top: 30px;
 	width: 80%;
 	.game_title {
 		background-image: url("../img/a.png");
-		border-bottom: 5px solid #EDC382;
 		text-align: center;
 		padding-bottom: 10px;
 		h1 {
@@ -81,7 +85,7 @@ body {
 		padding-bottom: 10px;
 		border-bottom-left-radius: 20px;
 		border-bottom-right-radius: 20px;
-		background-image: radial-gradient(#226F5F,#13453C, #06352D);
+		background-image: radial-gradient(#EDDABB, #AB9774, #817B6D, #7F5618, #5A4119);
 		#main-game {
 			display: flex;
 			justify-content: center;
@@ -156,7 +160,7 @@ body {
 		width: 400px;
 		text-align: center;
 		.notigame {
-			background-image: url("../img/bg2.png");
+			background-image: linear-gradient( #E9C190, #AB9774,#3D280B,);
 			border-radius: 10px;
 			padding: 24px;
 			position: relative;

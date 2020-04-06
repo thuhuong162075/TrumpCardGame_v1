@@ -26,6 +26,14 @@ var maxWidth=0;
 var timer;
 //kiểm tra các thông báo 
 var checkNoti = false;
+//thời gian hoàn thành màn chơi
+var timeLevel = 0;
+//thời gian Tổng 
+var timeTotal = 0;
+//phút kết thúc màn 
+var m_end = 0;
+//giây kết thúc màn 
+var s_end = 0;
 
 $(document).ready(function(){
 	//createGame(5);
@@ -82,11 +90,11 @@ function OpenNoti(str){
 			$('.menu').css('display','block');
 		}
 		if(str == 'lose'){
-			$('.totalPoint').html("Số điểm bạn đạt được: " + card_flip);
+			$('.totalPoint').html("The number of points you gain: " + card_flip);
 			$('.lose').css('display','block');
 		}
 		if(str == 'win'){
-			$('.level-continue').html("Bàn tiếp theo: " + (level+1) );
+			$('.level-continue').html("The next level: " + (level+1) );
 			$('.win').css('display','block');
 		}
 		if(str == 'final'){
@@ -119,6 +127,7 @@ function createGame(lev=1){
 	audio1.loop = true; 
 	audio1.play();
 	//PlaySound('audio1');
+	timeLevel=0;
 	lev = lev*2;
 	let html = '';
 	let arrRandom = [];
@@ -138,6 +147,7 @@ function createGame(lev=1){
 	s_start = 0;
 	if (level == 1) {
 		$('#main').css('width', String(110*2) + 'px');
+		$('#main').css('height', String(340) + 'px');
 		
 	} else if(level <= 9) {
 		$('#main').css('width', String(110*level) + 'px');
@@ -225,6 +235,8 @@ function alertGame(harr){
 
 
 function caculatorTime(){
+	timeLevel++;
+	timeTotal++;
 	$('.myBar').css('width',Math.round(
 		(--widthCurrent/maxWidth)*100)+'%');
 	//kiểm tra giá trị về 0 thì ngừng setInterval

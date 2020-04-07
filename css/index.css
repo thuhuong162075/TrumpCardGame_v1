@@ -150,6 +150,8 @@ body {
         display: none; }
       #notification .wrapper .notigame.lose {
         display: none; }
+        #notification .wrapper .notigame.lose .totalPoint {
+          font-family: font4; }
       #notification .wrapper .notigame.win {
         display: none; }
         #notification .wrapper .notigame.win .level-continue {

@@ -188,6 +188,9 @@ body {
 			}
 			&.lose {
 				display: none;
+				.totalPoint {
+					font-family: font4;
+				}
 			}
 			&.win {
 				display: none;
